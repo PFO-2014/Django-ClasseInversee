@@ -1,0 +1,54 @@
+/	MonEtablissement.views.index	index	
+/<etablissement_text>/sequence/<niveau_int>eme/	MonEtablissement.views.sequence	sequence	
+/MonEtablissement/	MonEtablissement.views.index	index	
+/MonEtablissement/<etablissement_text>/sequence/<niveau_int>eme/	MonEtablissement.views.sequence	sequence	
+/MonEtablissement/login	MonEtablissement.views.login		
+/MonEtablissement/welcome	MonEtablissement.views.welcome	welcome	
+/admin/	django.contrib.admin.sites.index	admin:index	
+/admin/<app_label>/	django.contrib.admin.sites.app_index	admin:app_list	
+/admin/MonEtablissement/eleve/	django.contrib.admin.options.changelist_view	admin:MonEtablissement_eleve_changelist	
+/admin/MonEtablissement/eleve/<var>/	django.contrib.admin.options.change_view	admin:MonEtablissement_eleve_change	
+/admin/MonEtablissement/eleve/<var>/delete/	django.contrib.admin.options.delete_view	admin:MonEtablissement_eleve_delete	
+/admin/MonEtablissement/eleve/<var>/history/	django.contrib.admin.options.history_view	admin:MonEtablissement_eleve_history	
+/admin/MonEtablissement/eleve/add/	django.contrib.admin.options.add_view	admin:MonEtablissement_eleve_add	
+/admin/MonEtablissement/mesactivite/	django.contrib.admin.options.changelist_view	admin:MonEtablissement_mesactivite_changelist	
+/admin/MonEtablissement/mesactivite/<var>/	django.contrib.admin.options.change_view	admin:MonEtablissement_mesactivite_change	
+/admin/MonEtablissement/mesactivite/<var>/delete/	django.contrib.admin.options.delete_view	admin:MonEtablissement_mesactivite_delete	
+/admin/MonEtablissement/mesactivite/<var>/history/	django.contrib.admin.options.history_view	admin:MonEtablissement_mesactivite_history	
+/admin/MonEtablissement/mesactivite/add/	django.contrib.admin.options.add_view	admin:MonEtablissement_mesactivite_add	
+/admin/MonEtablissement/mesclasse/	django.contrib.admin.options.changelist_view	admin:MonEtablissement_mesclasse_changelist	
+/admin/MonEtablissement/mesclasse/<var>/	django.contrib.admin.options.change_view	admin:MonEtablissement_mesclasse_change	
+/admin/MonEtablissement/mesclasse/<var>/delete/	django.contrib.admin.options.delete_view	admin:MonEtablissement_mesclasse_delete	
+/admin/MonEtablissement/mesclasse/<var>/history/	django.contrib.admin.options.history_view	admin:MonEtablissement_mesclasse_history	
+/admin/MonEtablissement/mesclasse/add/	django.contrib.admin.options.add_view	admin:MonEtablissement_mesclasse_add	
+/admin/MonEtablissement/messeance/	django.contrib.admin.options.changelist_view	admin:MonEtablissement_messeance_changelist	
+/admin/MonEtablissement/messeance/<var>/	django.contrib.admin.options.change_view	admin:MonEtablissement_messeance_change	
+/admin/MonEtablissement/messeance/<var>/delete/	django.contrib.admin.options.delete_view	admin:MonEtablissement_messeance_delete	
+/admin/MonEtablissement/messeance/<var>/history/	django.contrib.admin.options.history_view	admin:MonEtablissement_messeance_history	
+/admin/MonEtablissement/messeance/add/	django.contrib.admin.options.add_view	admin:MonEtablissement_messeance_add	
+/admin/MonEtablissement/messequence/	django.contrib.admin.options.changelist_view	admin:MonEtablissement_messequence_changelist	
+/admin/MonEtablissement/messequence/<var>/	django.contrib.admin.options.change_view	admin:MonEtablissement_messequence_change	
+/admin/MonEtablissement/messequence/<var>/delete/	django.contrib.admin.options.delete_view	admin:MonEtablissement_messequence_delete	
+/admin/MonEtablissement/messequence/<var>/history/	django.contrib.admin.options.history_view	admin:MonEtablissement_messequence_history	
+/admin/MonEtablissement/messequence/add/	django.contrib.admin.options.add_view	admin:MonEtablissement_messequence_add	
+/admin/auth/group/	django.contrib.admin.options.changelist_view	admin:auth_group_changelist	
+/admin/auth/group/<var>/	django.contrib.admin.options.change_view	admin:auth_group_change	
+/admin/auth/group/<var>/delete/	django.contrib.admin.options.delete_view	admin:auth_group_delete	
+/admin/auth/group/<var>/history/	django.contrib.admin.options.history_view	admin:auth_group_history	
+/admin/auth/group/add/	django.contrib.admin.options.add_view	admin:auth_group_add	
+/admin/auth/user/	django.contrib.admin.options.changelist_view	admin:auth_user_changelist	
+/admin/auth/user/<var>/	django.contrib.admin.options.change_view	admin:auth_user_change	
+/admin/auth/user/<var>/delete/	django.contrib.admin.options.delete_view	admin:auth_user_delete	
+/admin/auth/user/<var>/history/	django.contrib.admin.options.history_view	admin:auth_user_history	
+/admin/auth/user/<var>/password/	django.contrib.auth.admin.user_change_password		
+/admin/auth/user/add/	django.contrib.auth.admin.add_view	admin:auth_user_add	
+/admin/jsi18n/	django.contrib.admin.sites.i18n_javascript	admin:jsi18n	
+/admin/login/	django.contrib.admin.sites.login	admin:login	
+/admin/logout/	django.contrib.admin.sites.logout	admin:logout	
+/admin/password_change/	django.contrib.admin.sites.password_change	admin:password_change	
+/admin/password_change/done/	django.contrib.admin.sites.password_change_done	admin:password_change_done	
+/admin/r/<content_type_id>/<object_id>/	django.contrib.contenttypes.views.shortcut	admin:view_on_site	
+/login	MonEtablissement.views.login		
+/login/	MonEtablissement.views.login		
+/welcome	MonEtablissement.views.welcome		
+/welcome	MonEtablissement.views.welcome	welcome	

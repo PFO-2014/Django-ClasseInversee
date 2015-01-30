@@ -1,0 +1,21 @@
+{% extends 'MonEtablissement/base.html' %}
+{% load crispy_forms_tags %}
+ 
+{% block content %}
+<div class="container">
+
+		<!-- <p>{{test}}</p> -->
+	
+		<div class="video">
+		<p>&#8211; TEST: Inclure une video</p>
+		<p><span class='embed-youtube' style='text-align:center; display: block;'><iframe width="560" height="315" src="//www.youtube.com/embed/_UhjZy233eU" frameborder="0" allowfullscreen></iframe></span></p>
+		</div>
+	
+		<div class=" row text center">
+	
+		{% crispy form %}
+		
+		</div>
+		
+</div><!-- container -->
+{% endblock %} 

@@ -1,0 +1,137 @@
+{% extends "MonEtablissement/base.html" %}
+<!-- acces crispy namespace -->
+{% load crispy_forms_tags %}
+
+{% block title %}sequence{% endblock %} 
+{% block bodyId %}sequence{% endblock %} 
+{% block content %}
+
+
+<!-- Squelette de page pour servir les séquences par niveau -->
+
+
+<div class="container-fluid">
+ 	<div class="row text-center">
+	
+	{% if domaine  %}
+			{% for d in domaine %}
+			{% if d.0.ordre  %}
+<!-- 	href="/login"> -->
+			<a href="/MonEtablissement/sequence/{{niveau_int}}eme/seance_id{{ d.0.id }}" ><!-- TODO: figure a way to build the url to the sequence -->
+			
+			<div class="col-sm-3" >
+				<div style="margin-top:10px;
+							color:black;
+							{% if d.1.color  %}
+							background: {{d.1.color }};
+							{% else %}
+							background: {{d.1 }};
+							{% endif %}
+							border: #cdcdcd medium solid;
+							border-radius: 10px;
+							height:180px">
+					<p><em>Séquence {{d.0.ordre}}/{{ domaine|length }}</em></p>
+					<h3><span style="text-transform:lowercase;">
+						{{ d.0.short_description_sequence }}  <!-- <br> niveau  {{ niveau_int}}<sup>eme</sup>  -->
+						</span>
+					</h3>
+					<p> <span style="text-transform:uppercase;"><b>{{ d.1.nom }}</b></span> </p>
+					<p> {{ d.0.full_description_sequence }} </p>
+<!-- 					<p><em>Séquence {{d.0.ordre}}/{{ domaine|length }}</em> -->
+
+					
+				</div>
+			</div>
+			</a>
+			
+			{% endif %}
+			{% endfor %}
+			
+			
+	{% else %}
+	
+	
+	<a href="/welcome">
+			<div class="col-sm-12" >
+				<div style="margin-top:10px;
+							border: #cdcdcd medium solid;
+							border-radius: 10px;">
+					<h3>
+						Pas de séquence disponible pour le niveau {{niveau_int}} ème 
+					</h3>
+					<p>Retour à la page d'acceuil {{ sequence.domaine }} </p>
+					
+				</div>
+			</div>
+			</a>
+	
+	
+	{% endif %}
+	
+
+	<!-- {% if domaine  %}
+	{% for d in domaine %}
+	
+	{% if d.1.color  %}
+	<p>{{d.1.color}}</p>
+	{% else %}
+	<p>{{d.1}}</p>
+	{% endif %}
+	
+	
+	{% endfor %}
+			
+			
+	{% else %}
+	<p>RIEN </p>
+	{% endif %} -->
+	
+	
+	
+	<!-- {% if sequence_list  %}
+			{% for sequence in sequence_list %}
+	href="/login">
+			<a href="/MonEtablissement/sequence/{{niveau_int}}eme/seances{{ sequence.id }}" >TODO: figure a way to build the url to the sequence
+			
+			<div class="col-sm-4" >
+				<div style="margin-top:10px;
+							border: #cdcdcd medium solid;
+							border-radius: 10px;">
+					<h3>
+						{{ sequence.short_description_sequence }}  de niveau  {{ niveau_int}} 
+					</h3>
+					<p>cette séquence est une séquence catégorie {{ sequence.domaine }} </p>
+					<p> {{ sequence.full_description_sequence }} </p>
+					<p>{{sequence.niveau}}</p>
+				</div>
+			</div>
+			</a>
+			{% endfor %}
+			
+			
+	{% else %}
+	
+	
+	<a href="/welcome">
+			<div class="col-sm-12" >
+				<div style="margin-top:10px;
+							border: #cdcdcd medium solid;
+							border-radius: 10px;">
+					<h3>
+						Pas de séquence disponible pour le niveau {{niveau_int}} ème 
+					</h3>
+					<p>Retour à la page d'acceuil {{ sequence.domaine }} </p>
+					
+				</div>
+			</div>
+			</a>
+	
+	
+	{% endif %} -->
+	
+	</div><!-- top level row -->
+</div><!-- container -->
+
+
+
+{% endblock %}

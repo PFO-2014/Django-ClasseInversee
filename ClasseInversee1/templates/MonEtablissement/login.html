@@ -1,0 +1,31 @@
+{% extends "MonEtablissement/base.html" %}
+<!-- acces crispy namespace -->
+{% load crispy_forms_tags %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block bodyId %}loginPage{% endblock %}
+
+{% block headerContent %}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row">
+		<div class="center-block col-md-8"
+			
+			style="float: none; background-color: #F5F4EF">
+
+			<h1>Connexion</h1>
+
+			{% crispy form %}
+
+		</div>
+	</div>
+
+
+</div>
+<!-- container -->
+
+
+{% endblock %}

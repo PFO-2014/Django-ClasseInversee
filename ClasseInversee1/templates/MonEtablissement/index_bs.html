@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "MonEtablissement/base.html" %}
+<!-- acces crispy namespace -->
+{% load crispy_forms_tags %}
+
+{% block title %}Acceuill{% endblock %} 
+{% block bodyId %}welcomePage{% endblock %} 
+
+
+
+
+{% block content %}
+
+
+
+
+
+<div class="container">
+	<div class="row">
+
+		<div class="jumbotron" >
+			<h1>
+				<a href="/">C'est la Classe à l'envers ! </a> <!-- <a href="/login"
+					class="btn btn-info" role="button">Se connecter</a> <a
+					href="/register" class="btn btn-info" role="button">Nouvel
+					utilisateur</a> --><br>
+					<span style= "opacity: 0.6;
+								  background-color: #ffffff;			  	
+								  filter: alpha(opacity=60); 
+								  border-radius: 10px;">
+						<small>Passerelle élève/professeur pour la classe inversée</small>
+					</span>
+			</h1>
+			<div>
+
+				{% if logged_user %}
+				<!-- <h3>Bienvenue  {{logged_user.first_name}} </h3> -->
+								
+				 <a href="/profile"
+					class="btn btn-default" role="button" style= "opacity: 0.6;
+    filter: alpha(opacity=60);">Bienvenue {{logged_user}}</a> 
+				
+				
+				{% else %}
+				
+				<p>
+				
+				<a href="/login"
+					class="btn btn-info" role="button">Se connecter</a> <a
+					href="/register" class="btn btn-info" role="button">Nouvel
+					utilisateur</a>
+				
+				</p>
+				
+				{% endif %}
+
+			</div>
+
+		</div>
+		<!-- jumbotron -->
+
+		{% if niveau_list %}
+		<div class="row">
+			{% for monniveau in niveau_list %}
+
+
+
+			<div class="col-sm-3" >
+				<div style="padding:10px;
+							background-color: #ffffff;
+							border: #cdcdcd medium solid;
+							border-radius: 10px;">
+					<h3 style="text-align: center;">
+						<a href="/MonEtablissement/sequence/{{ monniveau.niveau }}eme">
+							{{ monniveau.niveau }}<sup>eme</sup></a>
+					</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+					<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco
+						laboris...</p>
+				</div>
+			</div>
+
+			{% endfor %} {% endif %}
+		</div><!-- row -->
+		
+		
+		
+		<div class="span12">
+			<!-- test un titre de niveau 1 qui redirige vers la page d'acceuil -->
+			<h1 class="site-title">
+				<a href="http://127.0.0.1:8000/welcome"
+					title="la classe à l'envers.fr" rel="home">la classe à l'envers</a>
+				<!-- 			<a href="http://www.classe-a-l-envers.fr/" title="la classe à l'envers.fr" rel="home">la classe à l'envers</a> -->
+			</h1>
+
+			<h2 class="site-description">Classe inversée en Mathématiques</h2>
+
+			<!-- test acceuil utilisateur -->
+			<!-- {% if logged_user %}
+			<p>Bienvenue {{logged_user.first_name}}</p>
+			<p>Bienvenue {{logged_user}}</p>
+			{% endif %} -->
+
+			
+				Ce site est votre plateforme de classe inversée.
+
+				BlablablaBlablablaBlablablaBlablablaBlablabla
+				BlablablaBlablablaBlablabla BlablablaBlablablaBlablablaBlablabla
+				BlablablaBlablablaBlablabla BlablablaBlablablaBlablabla
+				BlablablaBlablablaBlablablaBlablablaBlablablaBlablablaBlablablaBlablablaBlablabla
+				BlablablaBlablablaBlablablaBlablablaBlablablaBlablabla
+				BlablablaBlablablaBlablabla Blablabla
+			
+		</div><!-- span12 -->
+		
+	</div><!-- row top-level -->
+	
+
+</div>
+<!-- container -->
+
+
+{% endblock %}

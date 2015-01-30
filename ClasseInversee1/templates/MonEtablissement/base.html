@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- Base HTML doc, Bootstrap template -->
+	<head>
+		<meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>  -->
+		<script src="/static/bootstrap/js/bootstrap.min.js"></script> 
+		
+		
+		<title>La Classe à l'envers – {% block title %}Bienvenue{% endblock %}</title> 
+		
+		
+	</head>
+	
+<div class="navbar navbar-inverse">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="/welcome">Accueil</a>
+  </div>
+  <div class="navbar-collapse collapse navbar-inverse-collapse">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Active</a></li>
+      <li><a href="#">Link</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">niveau <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li class="dropdown-header">Collège</li>
+          <li><a href="/MonEtablissement/sequence/6eme"> 6 eme</a></li>
+          <li><a href="/MonEtablissement/sequence/5eme"> 5 eme</a></li>
+          <li><a href="/MonEtablissement/sequence/4eme"> 4 eme</a></li>
+          <li><a href="/MonEtablissement/sequence/3eme"> 3 eme</a></li>
+          
+          <li class="divider"></li>
+          <li class="dropdown-header">Lycée</li>
+          <li><a href="/MonEtablissement/sequence/seconde"> Seconde</a></li>
+          <li><a href="/MonEtablissement/sequence/premiere"> Première</a></li>
+          <li><a href="/MonEtablissement/sequence/terminale"> Terminale</a></li>
+        </ul>
+      </li>
+    </ul>
+    <form class="navbar-form navbar-left">
+      <input class="form-control col-lg-8" placeholder="Recherche" type="text">
+    </form>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#">Link</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ma Classe <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/login">se connecter</a></li>
+          <li><a href="/register">créer un compte</a></li>
+          <li><a href="#">se déconnecter</a></li>
+     
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+	
+
+	<body id="{% block bodyId %}genericPage{% endblock %}">
+		
+		<header id="test")>
+		{% block headerContent %}{% endblock %}
+		</header>
+
+		<section id="content">
+		
+			
+					{% block content %}{% endblock %}
+			
+			
+    
+		</section>
+	
+	</body>
+
+</html>

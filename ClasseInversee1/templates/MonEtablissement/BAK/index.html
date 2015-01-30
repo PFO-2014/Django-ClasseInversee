@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>la classe à l'envers.fr | Classe inversée en Mathématiques</title>
+</head>
+<body>
+
+<div class="site-branding">
+			
+				<h1 class="site-title">
+				<a href="http://127.0.0.1:8000/" title="la classe à l'envers.fr" rel="home">la classe à l'envers</a>
+<!-- 			<a href="http://www.classe-a-l-envers.fr/" title="la classe à l'envers.fr" rel="home">la classe à l'envers</a> -->				</h1>
+						
+				<h2 class="site-description">Classe inversée en Mathématiques</h2>
+										
+		</div>
+
+{% if current_year_classes_list %}
+	<nav id="header-menu" class="menu horizontal-menu header-menu" role="navigation">
+		<ul>
+			{% for maclasse in current_year_classes_list %}
+			<li class="menu-item menu-item-type-taxonomy menu-item-object-category"> Etablissement: {{maclasse.nom_etablissement_text}},<b> Niveau </b> <a href="/MonEtablissement/{{maclasse.nom_etablissement_text}}/sequence/{{ maclasse.niveau }}eme"> {{ maclasse.niveau }} eme</a> </li>
+{% endfor %}
+    </ul>
+    </nav><!-- #header-menu -->	
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+        <meta charset="utf-8" />
+        <title>La Classe à l'envers ! </title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">testPelican </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/review.html">Review</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/my-second-review.html">My Second Review</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2014-12-03T10:20:00+01:00">
+                Published: mer. 03 décembre 2014
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/myself.html">myself</a>
+        </address>
+<p>In <a href="/category/review.html">Review</a>. </p>
+
+</footer><!-- /.post-info --><p><strong>Following is a <strong>second</strong> review of my favorite mechanical keyboard.</strong></p>
+<div class="highlight"><pre><span class="n">Following</span> <span class="n">is</span> <span class="n">a</span> <span class="n">review</span> <span class="n">of</span> <span class="n">my</span> <span class="n">favorite</span> <span class="n">mechanical</span> <span class="n">keyboard</span><span class="p">.</span>
+</pre></div>
+
+
+<div class="image">
+        <p>&#8211; TEST: Inclure une image</p>
+        <p><span class='embed-youtube' style='text-align:center; display: block;'><img src="/img/DSC_7048.JPG" width="200px" /></span></p>
+    </div>
+
+<div class="video">
+        <p>&#8211; TEST: Inclure une video</p>
+        <p><span class='embed-youtube' style='text-align:center; display: block;'><iframe width="560" height="315" src="//www.youtube.com/embed/_UhjZy233eU" frameborder="0" allowfullscreen></iframe></span></p>
+    </div>
+
+<iframe src="https://docs.google.com/forms/d/10Cq-VAZKlZFmCebqYuugvfTW1XX5pjPkPloEikzsMn4/viewform?embedded=true" width="760" height="1280" frameborder="0" marginheight="0" marginwidth="0">Chargement en cours...</iframe>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/my-first-review.html" rel="bookmark"
+                           title="Permalink to My First Review">My First Review</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2010-12-03T10:20:00+01:00">
+                Published: ven. 03 décembre 2010
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/myself.html">myself</a>
+        </address>
+<p>In <a href="/category/review.html">Review</a>. </p>
+
+</footer><!-- /.post-info -->                <p><strong>Following is a review of my favorite mechanical keyboard.</strong></p>
+<div class="highlight"><pre><span class="n">Following</span> <span class="n">is</span> <span class="n">a</span> <span class="n">review</span> <span class="n">of</span> <span class="n">my</span> <span class="n">favorite</span> <span class="n">mechanical</span> <span class="n">keyboard</span><span class="p">.</span>
+</pre></div>
+
+
+<p>An <a href="http://url.com/" title="Title">example</a></p>
+<div class="image">
+        <p>&#8211; TEST: Inclure une image</p>
+        <p><span class='embed-youtube' style='text-align:center; display: block;'><img src="/img/DSC_7048.JPG" width="200px" /></span></p>
+    </div>
+
+<div class="video">
+        <p>&#8211; TEST: Inclure une video</p>
+        <p><span class='embed-youtube' style='text-align:center; display: block;'><iframe width="560" height="315" src="//www.youtube.com/embed/_UhjZy233eU" frameborder="0" allowfullscreen></iframe></span></p>
+    </div>
+                <a class="readmore" href="/my-first-review.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+<p class="paginator">
+    Page 1 / 1
+</p>
+                </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

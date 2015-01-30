@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+
+{% if niveau_int %}
+
+<head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>la classe à l'envers.fr | niveau {{ niveau_int}} ème </title>
+        <link rel="stylesheet" href="/static/css/main.css" />
+
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+
+
+	<div>Vous regardez sequence de niveau  {{ niveau_int}} </div>
+
+	<div class="highlight"><pre><span class="n">Vous regardez sequence de niveau  {{ niveau_int}}</span><span class="p">.</span>
+	</pre></div>
+
+	<div class="video">
+		<p>&#8211; TEST: Inclure une video</p>
+		<p><span class='embed-youtube' style='text-align:center; display: block;'><iframe width="560" height="315" src="//www.youtube.com/embed/_UhjZy233eU" frameborder="0" allowfullscreen></iframe></span></p>
+	</div>
+
+	<div class="video">
+		<p>&#8211; TEST: Inclure un formulaire</p>
+		<p><span class='embed-youtube' style='text-align:center; display: block;'><iframe src="https://docs.google.com/forms/d/1XyOqqyOtl7dgCGwTOp4xiWBvgCaiCJelJ3i5mvDPXc0/viewform?embedded=true" width="700" height="700" frameborder="0" marginheight="0" marginwidth="0">Chargement en cours...</iframe></span></p>
+	</div>
+
+{% else %}
+    <p>Nothing here</p>
+{% endif %}
