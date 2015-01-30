@@ -1,0 +1,150 @@
+{% extends "MonEtablissement/base.html" %}
+<!-- acces crispy namespace -->
+{% load crispy_forms_tags %}
+
+{% block title %}sequence{% endblock %} 
+{% block bodyId %}sequence{% endblock %} 
+{% block content %}
+
+
+<!-- Squelette de page pour servir les activités et documents disponible pour une séquence donnée -->
+
+
+<div class="container">
+
+
+
+<!-- {{ activities }} -->
+
+	{% if content  %}
+		<div class="row row-centered text-center" style="margin-top:10px;
+										color:black;
+										padding:25px;
+										border: #cdcdcd medium solid;
+										border-radius: 10px;">
+			
+			
+			<div class="center-block col-sm-3"  >
+								<div style="margin-top:10px;
+											color:black;
+											
+											border: #cdcdcd medium solid;
+											border-radius: 10px;
+											height:180px">
+											
+									<p><em><span style="text-transform:lowercase;">Documents
+									</span></em></p>
+									
+									<h3><span style="text-transform:lowercase;">
+										Documents <br> additionels 
+										</span>
+									</h3>
+																
+								</div>
+							</div>
+			
+			
+			
+			{% for c in content %}
+			<!-- serve related document documents -->
+				
+				
+				{% for f in c.1 %}
+				{% if f.docfile %}
+				{% if f.docfile.url  %}		
+					<a href="{{ f.docfile.url  }}">
+						<div class="center-block col-sm-3" >
+								<div style="margin-top:10px;
+											color:black;
+											background: #cdcdcd ;
+											border: #cdcdcd medium solid;
+											border-radius: 10px;
+											height:180px">
+											
+									<p><em><span style="text-transform:lowercase;">{{ f.short_description_activite }}
+									</span></em></p>
+									
+									<h3><span style="text-transform:lowercase;">
+										{{ f.full_description_activite }} 
+										</span>
+									</h3>
+																
+								</div>
+							</div>
+						</a> 
+				{% endif %}
+				{% endif %}
+				{% endfor %}<!-- in c.1 -->
+				
+				
+			{% endfor %}<!-- in content -->
+	
+			
+	{% endif %}
+	</div><!-- row -->
+
+
+	<!-- propose questions -->
+	
+	<div class="row row-centered text-center" style="margin-top:10px;
+										color:black;
+										padding:25px;
+										border: #cdcdcd medium solid;
+										border-radius: 10px;">
+										
+	<div class="center-block col-sm-3"  >
+								<div style="margin-top:10px;
+											color:black;
+											border: #cdcdcd medium solid;
+											border-radius: 10px;
+											height:180px">
+											
+									<p><em><span style="text-transform:lowercase;">Activités
+									</span></em></p>
+									
+									<h3><span style="text-transform:lowercase;">
+										Questionnaires <br> en ligne 
+										</span>
+									</h3>
+																
+								</div>
+							</div>
+	
+		{% for activity in activities  %}
+			{% if activity.1 %}
+			
+			
+			
+			
+			<a href="/MonEtablissement/questionform_{{activity.0.id}}">
+						<div class="center-block col-sm-3" >
+								<div style="margin-top:10px;
+											color:black;
+											background: #cdcded ;
+											border: #cdcdcd medium solid;
+											border-radius: 10px;
+											height:180px">
+											
+									<p><em><span style="text-transform:lowercase;">{{ activity.0.short_description_activite }}
+									</span></em></p>
+									
+									<h3><span style="text-transform:lowercase;">
+										il existe un set de question lié à "{{activity.0}}"
+										</span>
+									</h3>
+																
+								</div>
+							</div>
+						</a> 
+		
+		{% endif %}
+		{% endfor %}<!-- in activities -->
+	
+	</div>
+
+</div>	
+</div><!-- container -->
+
+
+
+{% endblock %}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>D3 Page Template</title>
+<script type="text/javascript" src="/static/d3/d3.min.js"></script>
+
+
+<style type="text/css">
+
+div.bar {
+	display: inline-block;
+	width: 200px;
+	height: 75px;
+	margin-right: 2px;
+	/* We'll override height later */
+	background-color: teal;
+}
+
+/* p {
+	font-size: 24px; CSS | 31font-weight : bold;
+	background-color: grey;
+	color: white;
+} */
+</style>
+
+
+</head>
+<body>
+
+	
+
+	<script type="text/javascript">
+		
+	
+		// Your beautiful D3 code will go here
+		var doshit = function(d){
+			return d;
+		};
+		
+		var dataset = [];
+		for (var i = 0; i < 20; i++) {
+			var newNumber = Math.random() * 30;
+			dataset.push(newNumber);
+		}
+
+		d3.select("body").selectAll("div").data(dataset).enter().append("div")
+				.attr("class", "bar").style("height", function(d) {
+					return d + "px";
+				});
+
+		/* d3.select("body").selectAll("p").data(dataset).enter().append("p")
+				.text(doshit).style("color", function(d) {
+					if (d > 15) {
+						//Threshold of 15
+						return "red";
+					} else {
+						return "black";
+					}
+				});
+		 */
+		/* d3.select("body")
+			.append("p")
+				.text("New paragraph!"); */
+				
+		/* SVG TEST */
+		//variabalizing Width and height
+		var svg_w = 500;
+		var svg_h = 50;
+		var barPadding = 1;
+				
+		//create the container SVG element AND make a direct reference to save later element search
+		var svg = d3.select("body").append("svg");		
+		
+		//give dimension to the empty svg element
+		svg.attr("width", svg_w)
+				.attr("height", svg_h);
+		
+		//ADDING SOME CIRCLE SHAPE FROM THE DUMMY DATASET + keep reference to the circles
+		var dummy_dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
+						11, 12, 15, 20, 18, 17, 16, 18, 23, 25 ];
+		var circles = svg.selectAll("circle")
+							.data(dummy_dataset)
+								.enter()
+									.append("circle");
+		
+		//GIVE postion (cx;cy) and radius r
+		
+		//i is a numeric index value of the current element. Counting starts at zero
+		circles.attr("cx", function(d, i) {
+			return (i * 50) + 25;})
+			   .attr("cy", svg_h / 2)
+			   .attr("r", function(d) {
+					return d;
+		}).attr("fill", "yellow")
+		.attr("stroke", "orange")
+		.attr("stroke-width", function(d) {
+		return d/2;
+		});
+		
+		
+		
+		
+		svg = d3.select("body")
+				.append("svg")
+				.attr("width", svg_w)
+				.attr("height", svg_h);
+		
+		svg.selectAll("rect")
+		.data(dummy_dataset)
+		.enter()
+		.append("rect")
+		.attr("x", function(d, i) {
+			return i * (svg_w / dummy_dataset.length); //Bar width of 20 plus 1 for padding
+			})
+		.attr("width", svg_w / dummy_dataset.length - barPadding )
+		.attr("y", 0)
+		.attr("width", 20)
+		.attr("height", function(d) {
+			return d;
+		}).attr("fill", function(d) {
+			return "rgb(0, 0, " + (d * 10) + ")";
+		});
+		
+		
+	</script>
+
+</body>
+</html>
