@@ -28,7 +28,7 @@ master build from django classbook Apprendre_la_programmation_web_avec_Python_et
 This web application has been dockerized. 
 The Dockerfile may be use to build an ad-hoc docker container:
 
-    - Minimal debian image
+    - Minimal debian image from DockerHub
     - Install all required depencies
     - Include the application
 
