@@ -14,9 +14,11 @@ see http://en.wikipedia.org/wiki/Flipped_classroom
 
 include:
 
-    - [x] Database model to support teacher materials
-    - [x] session management
-    - [] interactive assignement for student (in progress)
+    - Database model to support teacher materials
+        - Sqlite
+        - See MCD.png
+    - session management that extends User from django.contrib.auth.models
+    - interactive assignement for student (in progress)
     
 
 master build from django classbook Apprendre_la_programmation_web_avec_Python_et_Django_ed1_v1
