@@ -12,7 +12,7 @@ Build a system to support a Flipped Classroom for teachers.
 
 see http://en.wikipedia.org/wiki/Flipped_classroom
 
-include:
+includes:
 
     - Database model to support teacher materials
         - Sqlite
@@ -41,6 +41,8 @@ docker build -t pfo2014/classinv:1 .
 ##3. Run
 
 To run it a make it accessible on your localhost:8000:
+ - d to daemonize
+ - p for tcp port forwarding
 
 ```shell
 docker run -d -p 8000:8000 pfo2014/classinv:1  python /ClasseInv/manage.py runserver 0.0.0.0:8000
