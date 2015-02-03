@@ -18,14 +18,14 @@ CMD mkdir /home/site
 COPY ClasseInversee1 /home/site
 
 #Add user to group www-data for nginx
-RUN useradd -a -G www-dat $USER 
+#RUN usermod -a -G www-data $USER 
 
 # Setup all the configfiles
 # simlink so nginx can see the ad-hoc conf. file
 RUN ln -s /home/site/ClasseInversee1_nginx.conf /etc/nginx/sites-enabled/
 # Make sure all static/media files permissions are allowing read
-RUN chmod find /home/site/static -type f -exec chmod 664 {} \;
-RUN chmod find /home/site/media -type f -exec chmod 664 {} \;
+RUN chmod -R +rw /home/site/static  
+RUN chmod -R +rw /home/site/media
 
 
 # Expose Django application private port: ClasseInverse1
