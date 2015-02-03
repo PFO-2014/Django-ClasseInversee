@@ -1,3 +1,4 @@
-django==1.7
-django-extensions
-django-crispy-forms
+Django==1.7
+django-extensions==1.4.9
+django-crispy-forms==1.4.0
+uWSGI==2.0.9
