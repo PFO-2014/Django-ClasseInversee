@@ -212,7 +212,8 @@ class ProgressionEleve(models.Model):
     #pour une activité, le résultat (niveau implicite porté par champ activite)
     #Blank; null si pas de participation à l'activité
     resultat = models.IntegerField('Note', blank=True, null=True)
-
+    #Need write date to keep the most up-to-date answer
+    date = models.DateTimeField('date', blank=True, null=True, auto_now_add=True)
 
 #===============================================================================
 # QUESTION 
@@ -242,9 +243,7 @@ class MesReponse(models.Model):
     - Default: Réponse unique, champ verify = True
     - alternative : plusieurs réponses ie:QCM
     """
-    
-    
-    
+        
     #Foreign keys
     question = models.ForeignKey(MesQuestion)
     
