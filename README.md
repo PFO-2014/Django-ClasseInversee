@@ -77,7 +77,8 @@ need to amend the nginx conf file for path, server, host name,...:
 then:
 	
 ```shell
-docker run /etc/init.d/nginx restart && uwsgi --ini /ClasseInv/classeInverse_uwsgi.ini 
+docker run /etc/init.d/nginx restart 
+docker run uwsgi --ini /ClasseInv/classeInverse_uwsgi.ini 
 ```
 
 

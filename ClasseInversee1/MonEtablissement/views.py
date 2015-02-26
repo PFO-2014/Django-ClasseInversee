@@ -366,8 +366,14 @@ def my_questionform(request,activity_id = None ):
             output += logged_user.username
         output += reptext
         
-        #create and save an object:
-        ProgressionEleve.objects.create(eleve = logged_user, resultat = note)
+        #create and save an object that:
+        #1. identify the user
+        #2. identify the activity he completed
+        #3. save his score
+        activity = MesActivite.objects.filter(id = activity_id)[0]
+        ProgressionEleve.objects.create(eleve = logged_user, resultat = note, activite=activity )
+        # kept for reference: activity not referenced
+        #ProgressionEleve.objects.create(eleve = logged_user, resultat = note)
         
         return HttpResponse(output)
         
