@@ -366,7 +366,12 @@ def my_questionform(request,activity_id = None ):
             output += logged_user.username
         output += reptext
         
-        #create and save an object that:
+        #TODO:
+        # At this point a new entry is written if student decide to submit a new answer to
+        # a question he already answer. DateTimeField allow to select the most up-to-date answer
+        # A better way would be to update the previous entry using the auto_now True option!
+        
+        #create  and save an object that:
         #1. identify the user
         #2. identify the activity he completed
         #3. save his score
