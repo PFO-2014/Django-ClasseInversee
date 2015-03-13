@@ -28,7 +28,43 @@
     <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
   	<p>Bienvenue {{user_to_show.username}} </p>
   	<p>Ajout: barre de progression</p>
-  	<p> Ajout sequence en cours </p>
+  	<p>Ajout sequence en cours </p>
+	
+	
+	
+	
+	{% for classe in classe_en_cours %}	  	
+  		
+  		
+  		
+  		
+  		<a href="/MonEtablissement/sequence/URLINCOMPLET" ><!-- TODO: complete URL -->
+			
+			<div class="col-sm-3" >
+				<div style="margin-top:10px;
+							color:black;
+							background: #8795d6;1
+							border: #cdcdcd medium solid;
+							border-radius: 10px;
+							height:180px">
+					<p><em>{{ classe }}</em></p>
+					<h3><span style="text-transform:lowercase;">
+						Blalalalalala
+						</span>
+					</h3>
+					
+					
+				</div>
+			</div>
+			</a>
+  		
+  		
+  		
+  
+  	{% endfor %}	
+  	
+  	
+  	
   	<div class="progress">
   	<div class="progress-bar" style="width: 60%;"></div>
 	</div>
