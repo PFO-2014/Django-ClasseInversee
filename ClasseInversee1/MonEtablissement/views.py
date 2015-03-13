@@ -193,11 +193,29 @@ def get_logged_user_from_request(request):
 def show_profile(request):
     """
     Creation d'une vue pour afficher le profil utilisateur
+    
+    TODO: Finaliser la distinction eleve/professeur de la méthode:
+            get_logged_user_from_request
+    TODO: 
+            
     """
     logged_user = get_logged_user_from_request(request)
     if logged_user:
+        
+        #Récuperer la liste des classes pour l'année en cours
+        
+        #Si date comprise entre septembre et 31 décembre alors année_en_cours = timezone.datetime.today().year
+        #Si date comprise entre 01 janvier et 31 aout alors année_en_cours = ( timezone.datetime.today().year - 1 )
+        
+        if timezone.datetime.today().month > 9:
+            classe_en_cours = MesClasse.objects.filter(annee_cours_dateint = timezone.datetime.today().year)
+        else:           
+            classe_en_cours = MesClasse.objects.filter(annee_cours_dateint = timezone.datetime.today().year - 1 )
+        
+        
+        
         return render_to_response ('MonEtablissement/show_profile.html',
-                                   {'user_to_show': logged_user})
+                                   {'user_to_show': logged_user,  'classe_en_cours': classe_en_cours , 'mois': timezone.datetime.today().month } )
     # Le paramètre n'a pas été trouvé
     else:
         return HttpResponseRedirect('/login')
