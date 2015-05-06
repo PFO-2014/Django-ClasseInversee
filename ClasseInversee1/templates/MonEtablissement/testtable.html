@@ -1,0 +1,43 @@
+{% extends "MonEtablissement/base.html" %}
+<!-- acces crispy namespace -->
+{% load crispy_forms_tags %}
+
+{% block title %}sequence{% endblock %} 
+{% block bodyId %}sequence{% endblock %} 
+{% block content %}
+
+
+{% load django_tables2 %}
+
+<!-- Squelette de page pour servir les resultats par classe -->
+
+
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ STATIC_URL }}django_tables2/themes/paleblue/css/screen.css" />
+    </head>
+    <body>
+
+		<div class="container-fluid">
+		 	<div class="row text-center">
+		    	<div class="col-sm-12" >
+					<div style="margin-top:10px;
+								border: #cdcdcd medium solid;
+								border-radius: 10px;">
+						<h3>
+							Resultats pour acitivité XXXXX class XXXXX 
+						</h3>
+						<p>{% render_table table %}</p>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+        
+    </body>
+</html>
+
+
+{% endblock %}
