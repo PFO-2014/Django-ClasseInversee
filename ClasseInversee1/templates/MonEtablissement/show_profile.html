@@ -5,6 +5,7 @@
 {% block title %}Paramètres du profil{% endblock %} 
 {% block bodyId %}userShowProfilePage{% endblock %} 
 {% block content %}
+
 <h1>Compte utilisateur: {{user_to_show.username}}</h1> 
 
 
@@ -29,7 +30,9 @@
   	<p>Bienvenue {{user_to_show.username}} </p>
   	<p>Ajout: barre de progression</p>
   	<p>Ajout sequence en cours </p>
-	
+	<div class="progress">
+  	<div class="progress-bar" style="width: 60%;"></div>
+	</div>
 	
 	
 	
@@ -38,7 +41,7 @@
   		
   		
   		
-  		<a href="/MonEtablissement/sequence/URLINCOMPLET" ><!-- TODO: complete URL -->
+  		<a href="/MonEtablissement/sequence/resultform_{{ classe.niveau }}{{ classe.id }}" ><!-- TODO: complete URL -->
 			
 			<div class="col-sm-3" >
 				<div style="margin-top:10px;
@@ -49,7 +52,8 @@
 							height:180px">
 					<p><em>{{ classe }}</em></p>
 					<h3><span style="text-transform:lowercase;">
-						Blalalalalala
+						{{ classe.id }}
+
 						</span>
 					</h3>
 					
@@ -65,9 +69,7 @@
   	
   	
   	
-  	<div class="progress">
-  	<div class="progress-bar" style="width: 60%;"></div>
-	</div>
+  	
   </div>
   <div class="tab-pane fade" id="profile">
     <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
