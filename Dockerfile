@@ -15,7 +15,7 @@ RUN pip install --upgrade -r requirements.txt
 
 # Install our code
 CMD mkdir /home/site
-COPY ClasseInversee1 /home/site
+COPY . /home/site
 
 #Add user to group www-data for nginx
 #RUN usermod -a -G www-data $USER 
@@ -24,8 +24,8 @@ COPY ClasseInversee1 /home/site
 # simlink so nginx can see the ad-hoc conf. file
 RUN ln -s /home/site/ClasseInversee1_nginx.conf /etc/nginx/sites-enabled/
 # Make sure all static/media files permissions are allowing read
-RUN chmod -R +rw /home/site/static  
-RUN chmod -R +rw /home/site/media
+RUN chmod -R +rw /home/site/ClasseInversee1/static  
+RUN chmod -R +rw /home/site/ClasseInversee1/media
 
 
 # Expose Django application private port: ClasseInverse1
