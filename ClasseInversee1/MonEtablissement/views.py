@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import json
-
+import django_tables2 as tables
 
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
@@ -328,6 +328,63 @@ def iterquestions(activity_id = None):
             reponse = MesReponse.objects.select_related().filter(question = question)
             yield question, reponse
 
+
+class Results_Table(tables.Table):
+    """
+    Create a simple table from ProgressionEleve
+    https://pypi.python.org/pypi/django-tables2
+    """
+    class Meta:
+        model = ProgressionEleve
+        # add class="paleblue" to <table> tag
+        attrs = {"class": "paleblue"}
+        
+def Results_simple_list(request,classe_id = None, niveau_int = None):
+    #build the queryset from all model objects
+    queryset = ProgressionEleve.objects.all()
+    
+    table = Results_Table(queryset)
+    # style the table
+    tables.RequestConfig(request).configure(table)
+    
+    context = {"table": table}
+    
+    
+    #USAGE: render(objet requête, garabit, contexte rempli <dict> (variable) **kwargs)
+    return render(request, 'MonEtablissement/testtable.html', context)
+    
+
+def my_results(request, classe_id = None, niveau_int = None):
+    """
+    Classe pour:
+    
+        - donner accès à l'ensemble des résultats par séquence
+        pour un classe donnée
+        - Réutilise template "élève" pour selection de séquence
+    """
+    
+    #recupère la liste de sequence associée au niveau (Backward lookup from Foreign key)
+    b = MesNiveaux.objects.get(niveau=niveau_int)
+    
+    sequence_list = MesSequence.objects.filter(niveau=b).select_related("domaine").order_by('ordre')
+     
+    domaine = []
+    for d in sequence_list:
+        if d.domaine:
+            domaine.append((d,d.domaine))
+        else:
+            domaine.append((d,"#cdcdcd"))
+        
+    context = {'sequence_list': sequence_list, 'niveau_int':niveau_int, 'domaine':domaine}
+    
+    #USAGE: render(objet requête, garabit, contexte rempli <dict> (variable) **kwargs)
+    return render(request, 'MonEtablissement/results_bs.html', context)
+#     output ="you are looking sequences at "+unicode(etablissement_text)+" niveau "+niveau_int+" eme" 
+#     return HttpResponse(output)
+    
+    
+    return HttpResponse(classe_niveau)
+    pass
 
 def my_questionform(request,activity_id = None ):
     """
