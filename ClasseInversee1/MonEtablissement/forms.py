@@ -6,8 +6,7 @@ from django.contrib.auth.hashers import check_password
 from MonEtablissement.models import Eleve
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field,\
-    Hidden
+from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field,Hidden
 from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions
 
 #===============================================================================
@@ -82,10 +81,12 @@ class UserForm(forms.ModelForm):
 class StudentProfileForm(forms.ModelForm):
     
    
-    
     class Meta:
         model = Eleve
         fields = ('user','date_de_naissance', 'ma_classe')
+        widgets = {
+            'user': forms.HiddenInput()
+        }
         
 
     #Crispy FormHelper
@@ -98,7 +99,7 @@ class StudentProfileForm(forms.ModelForm):
         PrependedText('ma_classe', 
                       '<span class="glyphicon glyphicon-home"></span> ', 
                       css_class='input-sm'),
-        Field('user', type='hidden'),
+        
        
         
         
@@ -114,6 +115,10 @@ class DocumentForm(forms.Form):
         help_text='max. 42 megabytes'
     )
 
+
+
+
+        
 class MessageForm(forms.Form):
     
     text_input = forms.CharField()
