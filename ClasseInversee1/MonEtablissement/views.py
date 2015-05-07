@@ -11,10 +11,11 @@ from django.template import RequestContext
 
 from django.utils import timezone
 
-from MonEtablissement.models import MesActivite, MesClasse, MesSeance,\
+from MonEtablissement.models import MesActivite, MesClasse, \
                                     MesSequence, MesNiveaux, User, Eleve, \
                                     MesQuestion, MesReponse, Domaine, ProgressionEleve
 from forms import LoginForm, MessageForm, StudentProfileForm, UserForm, QuestionsForm
+from django.forms.widgets import Select
 
 
 
@@ -46,15 +47,6 @@ def index(request, logged_user=None, *args):
     return render(request, 'MonEtablissement/index_bs.html', context)
 
 
-# def iter_sequence(sequence_list):
-#     """
-#     """
-#     
-#     for sequence in sequence_list:
-#         if sequence.domaine_f:
-#             yield sequence, sequence.domaine_f
-#         else:
-#             yield sequence, "ploup"
     
 
 def sequence(request, niveau_int):
@@ -81,28 +73,28 @@ def sequence(request, niveau_int):
     
     #USAGE: render(objet requête, garabit, contexte rempli <dict> (variable) **kwargs)
     return render(request, 'MonEtablissement/sequence_bs.html', context)
-#     output ="you are looking sequences at "+unicode(etablissement_text)+" niveau "+niveau_int+" eme" 
-#     return HttpResponse(output)
 
 
-def iteractivities(seq_id):
-    """
-    Coroutine
-    generator pour iterer sur un set de question/reponse
-    http://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do-in-python
-    """
-    
-    #retrieve all sequences:
-    seance_list = MesSeance.objects.filter(ma_sequence = seq_id) 
-    
-    for seance in seance_list:
-        #Retrieve associated activities to the current sequence
-        activities = MesActivite.objects.filter(ma_seance = seance)
+
+# def iteractivities(seq_id):
+#     """
+#     Coroutine
+#     generator pour iterer sur un set de question/reponse
+#     http://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do-in-python
+#     """
+#     
+#     #retrieve all sequences:
+#     seance_list = MesSeance.objects.filter(ma_sequence = seq_id) 
+#     
+#     activities = MesActivite.objects.filter(ma_sequence = seance_list)
+#     
+#     for act in activities:
+#         #Retrieve associated activities to the current sequence
+#         activities = MesActivite.objects.filter(ma_sequence = seq_id)
 #         for activity in activities:
 #             questions = MesQuestion.objects.filter(activite = activity)
 #             #retrieve questions for a given activit
-        yield seance, activities
-        
+#         yield seance, activities
         
 
 def seance(request,niveau_int, seq_id):
@@ -129,19 +121,20 @@ def seance(request,niveau_int, seq_id):
 #         output ="you are looking seance "+unicode(s)  +" from sequence "+unicode(seq_id)
 #     return HttpResponse(output)
 
-    content = iteractivities(seq_id)
+#     content = iteractivities(seq_id)
+    activities = MesActivite.objects.filter(ma_sequence = seq_id)
     
     l = []
     
     #Consomme generator
-    for c in content:
-        activities = c[1]  
-        for activity in activities:
+    for activity in activities:
+#         activities = c[1]  
+#         for activity in act:
             questions = MesQuestion.objects.filter(activite = activity)
             l.append([activity,questions])
     
     #rebuild generator
-    content = iteractivities(seq_id)
+    content = activities
     
     
     return render (request, 'MonEtablissement/activities_bs.html', {'content': content, 'activities':l})
@@ -200,7 +193,8 @@ def show_profile(request):
             
     """
     logged_user = get_logged_user_from_request(request)
-    if logged_user:
+    if logged_user.is_superuser:
+        #Hello teacher!
         
         #Récuperer la liste des classes pour l'année en cours
         
@@ -228,6 +222,7 @@ def welcome(request):
     
     if logged_user:
         return index(request, logged_user=logged_user)
+    
     #kept for reference - replaced by the generic get_logged_user_from_request()
 #     if 'logged_user_id' in request.session:
 #         logged_user_id = request.session['logged_user_id']
@@ -284,8 +279,8 @@ def register(request):
             eleve.user = user
             #build a new "partial + Non validated" StudentProfileForm using the eleve instance
             student_form = StudentProfileForm(None, instance=eleve)
-            return render(request,'MonEtablissement/user_profile.html', {'student_form': student_form, 'username': str(student_form.helper.attrs)})
-        
+            return render(request,'MonEtablissement/user_profile.html', {'student_form': student_form})
+            
         elif student_form.is_valid():
             
             student_form.save(commit=True)
@@ -333,25 +328,35 @@ class Results_Table(tables.Table):
     """
     Create a simple table from ProgressionEleve
     https://pypi.python.org/pypi/django-tables2
+    
+    todo: Sort by activity!
+    
     """
     class Meta:
         model = ProgressionEleve
         # add class="paleblue" to <table> tag
         attrs = {"class": "paleblue"}
         
-def Results_simple_list(request,classe_id = None, niveau_int = None):
+def Results_simple_list(request,classe_id = None, seq_id = None):
+    
+    #get activity id for seq_id:
+#     ma_seance_list = MesSeance.objects.all().filter(ma_sequence= seq_id)
+    mes_activite_list = MesActivite.objects.all().filter(ma_sequence = seq_id  )   
+     
     #build the queryset from all model objects
-    queryset = ProgressionEleve.objects.all()
+    eleve_list = Eleve.objects.all().filter(ma_classe = classe_id)
+         
+    queryset = ProgressionEleve.objects.all().filter(activite__in=mes_activite_list, eleve__in=eleve_list )
     
     table = Results_Table(queryset)
     # style the table
     tables.RequestConfig(request).configure(table)
     
-    context = {"table": table}
+    context = {"table": table, "sequence": MesSequence.objects.all().get(id=seq_id), "classe":MesClasse.objects.all().get(id=classe_id)}
     
     
     #USAGE: render(objet requête, garabit, contexte rempli <dict> (variable) **kwargs)
-    return render(request, 'MonEtablissement/testtable.html', context)
+    return render(request, 'MonEtablissement/result_table.html', context)
     
 
 def my_results(request, classe_id = None, niveau_int = None):
@@ -365,7 +370,6 @@ def my_results(request, classe_id = None, niveau_int = None):
     
     #recupère la liste de sequence associée au niveau (Backward lookup from Foreign key)
     b = MesNiveaux.objects.get(niveau=niveau_int)
-    
     sequence_list = MesSequence.objects.filter(niveau=b).select_related("domaine").order_by('ordre')
      
     domaine = []
@@ -375,7 +379,7 @@ def my_results(request, classe_id = None, niveau_int = None):
         else:
             domaine.append((d,"#cdcdcd"))
         
-    context = {'sequence_list': sequence_list, 'niveau_int':niveau_int, 'domaine':domaine}
+    context = {'sequence_list': sequence_list, 'niveau_int':niveau_int, 'domaine':domaine, 'classe_id':classe_id }
     
     #USAGE: render(objet requête, garabit, contexte rempli <dict> (variable) **kwargs)
     return render(request, 'MonEtablissement/results_bs.html', context)
@@ -410,6 +414,7 @@ def my_questionform(request,activity_id = None ):
     output = "bonjour "
     reptext = ""
     note = 0
+    
     if len(request.POST) > 0:
         
         #process POST answer and write results to UserDB
@@ -437,6 +442,7 @@ def my_questionform(request,activity_id = None ):
                 pass
             
         logged_user = get_logged_user_from_request(request)
+        
         if logged_user:
             output += logged_user.username
         output += reptext
@@ -449,22 +455,33 @@ def my_questionform(request,activity_id = None ):
         #create  and save an object that:
         #1. identify the user
         #2. identify the activity he completed
-        #3. save his score
+        #3. Check if a corresponding entry exists SELECT...WHERE...
+        #4. save his score (UPDATE or INSERT depending on 3.)
         activity = MesActivite.objects.filter(id = activity_id)[0]
-        ProgressionEleve.objects.create(eleve = logged_user, resultat = note, activite=activity )
-        # kept for reference: activity not referenced
-        #ProgressionEleve.objects.create(eleve = logged_user, resultat = note)
         
-        return HttpResponse(output)
         
-        if len(request.POST.get('question_eleve'))==0:
-            #formulaire vide
-            return render(request, 'MonEtablissement/questionform.html', {'form': form})
+        
+        #get() queryset; Only one result shoud be expected
+        try:
+            progeleve = ProgressionEleve.objects.all().get(activite=activity, eleve = Eleve.objects.all().get(user = logged_user))
+        except ProgressionEleve.DoesNotExist:
+            ProgressionEleve.objects.create(eleve = Eleve.objects.all().get(user = logged_user), resultat = note, activite=activity )
+            return HttpResponse(output)
+        except ProgressionEleve.MultipleObjectsReturned:
+            pass
+        
+        #Else; UPDATE object (note/question/attempt)
+        progeleve.resultat = note
+        progeleve.attempt = progeleve.attempt + 1
+        progeleve.question = request.POST.get('question_eleve')
+        progeleve.save()
+        
+        return HttpResponse("MAJ")
+            
+    
             
     else:
-        
-        
-        
+
         return render(request, 'MonEtablissement/questionform.html', {'form': form, 'test': activity_id})
         
 
