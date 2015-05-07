@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 import random
+from django.template.defaultfilters import default
 
 
 """
@@ -164,24 +165,24 @@ class Competence(models.Model):
 #===============================================================================
 # SEANCES
 #===============================================================================
-class MesSeance(models.Model):
-    """
-    Classe définissant le modèle des séances
-    Une séance références des activités
-    activités; videos; exercices; 
-    """
-    short_description_seance = models.CharField("Objet de la séance", max_length=200)
-    full_description_seance = models.TextField("Description d'une séance ", default='Description requise')
-    #ressource_de_la_seance
-    # http://code.google.com/p/django-selectreverse/
-    
-    #link to MesClasses
-    ma_sequence = models.ForeignKey(MesSequence)
-   
-    def __unicode__(self):
-        return self.short_description_seance
-    
-    
+# class MesSeance(models.Model):
+#     """
+#     Classe définissant le modèle des séances
+#     Une séance références des activités
+#     activités; videos; exercices; 
+#     """
+#     short_description_seance = models.CharField("Objet de la séance", max_length=200)
+#     full_description_seance = models.TextField("Description d'une séance ", default='Description requise')
+#     #ressource_de_la_seance
+#     # http://code.google.com/p/django-selectreverse/
+#     
+#     #link to MesClasses
+#     ma_sequence = models.ForeignKey(MesSequence)
+#    
+#     def __unicode__(self):
+#         return self.short_description_seance
+#     
+#     
 #===============================================================================
 # ACTIVITE - FORMULAIRES - QUESTIONS - VIDEOS - DOCUMENTS
 #===============================================================================
@@ -195,7 +196,7 @@ class MesActivite(models.Model):
     docfile = models.FileField(upload_to='documents/%Y/%m/%d',blank=True)
 
     
-    ma_seance = models.ForeignKey(MesSeance)
+    ma_sequence = models.ForeignKey(MesSequence, blank=True, null=True)
     
     def __unicode__(self):
         return self.short_description_activite
@@ -206,15 +207,24 @@ class MesActivite(models.Model):
 class ProgressionEleve(models.Model):
     """
     Classe pour enregistrer l'activité des éléves et leurs résultats
+    
+    Called in:
+    - views.my_questionform and to 
+        write an entry when students answer a question 
+    -views.Results_simple_list to
+        retrieve and show students results for teacher notation admin.
+    
     """
-    eleve = models.ForeignKey(User)
+    eleve = models.ForeignKey(Eleve)
     activite = models.ForeignKey(MesActivite,blank=True, null=True)
     #pour une activité, le résultat (niveau implicite porté par champ activite)
     #Blank; null si pas de participation à l'activité
     resultat = models.IntegerField('Note', blank=True, null=True)
+    #keep track of attempt number
+    attempt = models.IntegerField('attempt', default=1)
     #Need write date to keep the most up-to-date answer
     date = models.DateTimeField('date', blank=True, null=True, auto_now_add=True)
-
+    question = models.TextField("Question élève ", blank=True, null=True)
 #===============================================================================
 # QUESTION 
 #=============================================================================== 
