@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib import admin
-from MonEtablissement.models import MesClasse, MesSequence, MesSeance,\
+from MonEtablissement.models import MesClasse, MesSequence, \
     MesActivite, Eleve, MesNiveaux, MesQuestion, MesReponse, Domaine, \
     Competence, ProgressionEleve
 from django.contrib.admin.helpers import Fieldset
@@ -35,8 +35,8 @@ class MesClassesAdmin(admin.ModelAdmin):
     ]
     inlines = [MesSequencesInline]
 
-class MesSeanceAdmin(admin.ModelAdmin):
-    inlines = [MesActiviteInline]
+# class MesSeanceAdmin(admin.ModelAdmin):
+#     inlines = [MesActiviteInline]
     
 class MesSequenceAdmin(admin.ModelAdmin):
     list_display = ('short_description_sequence', 'niveau')
@@ -49,7 +49,7 @@ class MesSequenceAdmin(admin.ModelAdmin):
     
                 ]
     
-    inlines = [MesCompetenceInline]
+    inlines = [MesCompetenceInline, MesActiviteInline]
     
 class MesQuestionAdmin(admin.ModelAdmin):
     inlines = [MesReponsesInline]
@@ -59,7 +59,7 @@ class MesQuestionAdmin(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(MesClasse, MesClassesAdmin)
 admin.site.register(MesSequence, MesSequenceAdmin)
-admin.site.register(MesSeance, MesSeanceAdmin)
+# admin.site.register(MesSeance, MesSeanceAdmin)
 admin.site.register(MesActivite)
 admin.site.register(Eleve)
 admin.site.register(MesNiveaux)
