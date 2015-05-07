@@ -49,9 +49,8 @@
 			<!-- serve related document documents -->
 				
 				
-				{% for f in c.1 %}
-				{% if f.docfile %}
-				{% if f.docfile.url  %}		
+				{% if c.docfile %}
+				{% if c.docfile.url  %}		
 					<a href="{{ f.docfile.url  }}">
 						<div class="center-block col-sm-3" >
 								<div style="margin-top:10px;
@@ -74,7 +73,6 @@
 						</a> 
 				{% endif %}
 				{% endif %}
-				{% endfor %}<!-- in c.1 -->
 				
 				
 			{% endfor %}<!-- in content -->
@@ -103,7 +101,7 @@
 									</span></em></p>
 									
 									<h3><span style="text-transform:lowercase;">
-										Questionnaires <br> en ligne 
+										Tests <br> en ligne 
 										</span>
 									</h3>
 																
