@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "MonEtablissement/base.html" %}
+<!-- acces crispy namespace -->
+{% load crispy_forms_tags %}
+
+{% block title %}Questionnaire validé{% endblock %} 
+{% block bodyId %}welcomePage{% endblock %} 
+
+
+
+
+{% block content %}
+
+
+
+
+
+<div class="span12">
+  <!-- test un titre de niveau 1 qui redirige vers la page d'acceuil -->
+  <h1 class="site-title">
+
+
+  {% if anonymous_user %}
+
+  <p>Pour participer, vous devez être identifié en tant qu'elève participant à cette classe inversée</p>
+  <p>Vous n'êtes pas identifié, vos réponses ne seront donc pas traitées.</p>
+
+   
+   <div class="col-sm-12" >
+     <a href="/login">
+        <div style="padding:10px;
+              background-color: #4ada51;
+              border: #cdcdcd medium solid;
+              border-radius: 10px;
+              height:90px
+              width: 90">
+          <h3 style="text-align: center;">
+            
+              Pour vous identifier
+          </h3>
+          <p></p>
+        </div>
+      </a>
+    </div>
+
+  {% else %}
+
+
+  {% if redo  %}
+
+    Bravo! Vos modifications ont été enregistrées. 
+  {% else %}
+
+    Bravo! Vos réponses ont bien été enregistrées.
+
+  {% endif %}
+
+    
+
+  <!--   <a href="/welcome"
+      title="la classe à l'envers">la classe à l'envers</a> -->
+    <!--      <a href="http://www.classe-a-l-envers.fr/" title="la classe à l'envers.fr" rel="home">la classe à l'envers</a> -->
+  </h1>
+
+  <h2 class="site-description">Vous pouver recommener ce questionnaire à tout moment si vous le desirez. Seule la dernière participation sera enregistrée! 
+  Pour continuer: </h2>
+
+  <!-- recommencer -->
+  <div class="row">
+    <div class="col-sm-3" >
+      <div style="padding:10px;
+            background-color: #d10e44;
+            border: #cdcdcd medium solid;
+            border-radius: 10px;
+            height:180px">
+        <h3 style="text-align: center;">
+          <a href="/MonEtablissement/questionform_{{activity_id}}">
+            Recommencer</a>
+        </h3>
+        <p>Répondre de nouveau au questionnaire.</p>
+        <p>Seule la dernière participation sera enregistrée</p>
+      </div>
+    </div>
+
+    <div class="col-sm-3" >
+      <div style="padding:10px;
+            background-color: #8795d6;
+            border: #cdcdcd medium solid;
+            border-radius: 10px;
+            height:180px">
+        <h3 style="text-align: center;">
+          <a href="/MonEtablissement/sequence/{{ niveau }}eme/seance_id{{ sequence_id }}">
+            Retour vers la séquence</a>
+        </h3>
+        <p>D'autres documents sont peut-être disponibles. Consultez-les!</p>
+      </div>
+    </div>
+
+    <div class="col-sm-3" >
+      <div style="padding:10px;
+            background-color: #4ada51;
+            border: #cdcdcd medium solid;
+            border-radius: 10px;
+            height:180px">
+        <h3 style="text-align: center;">
+          <a href="/welcome">
+            Retour Page d'acceuil</a>
+        </h3>
+        <p></p>
+      </div>
+    </div>
+
+    <div class="col-sm-3" >
+      <div style="padding:10px;
+            background-color: #7da750;
+            border: #cdcdcd medium solid;
+            border-radius: 10px;
+            height:180px">
+        <h3 style="text-align: center;">
+          <a href="/logout">
+            Deconnexion</a>
+        </h3>
+        <p>Deconnectez vous!</p>
+      </div>
+    </div>
+  </div>
+
+    </div><!-- row -->
+    
+    
+      
+</div><!-- span12 -->
+
+
+
+
+  {% endif %}
+  
+
+  
+
+{% endblock %}
