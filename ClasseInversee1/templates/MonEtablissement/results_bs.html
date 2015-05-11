@@ -9,7 +9,6 @@
 
 <!-- Squelette de page pour servir les resultats par classe -->
 
-
 <div class="container-fluid">
  	<div class="row text-center">
 	
@@ -17,7 +16,7 @@
 			{% for d in domaine %}
 			{% if d.0.ordre  %}
 <!-- 	href="/login"> -->
-			<a href="/MonEtablissement/sequence/{{niveau_int}}eme/seance_id{{ d.0.id }}" ><!-- TODO: figure a way to build the url to the sequence -->
+			<a href="/MonEtablissement/sequence/results_{{ classe_id }}{{ d.0.id }}" ><!-- TODO: figure a way to build the url to the sequence -->
 			
 			<div class="col-sm-3" >
 				<div style="margin-top:10px;

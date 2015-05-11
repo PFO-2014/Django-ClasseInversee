@@ -240,6 +240,7 @@ class MesQuestion(models.Model):
     #champ propre
     enonce = models.TextField()
     resume = models.CharField('description succinte', max_length=200)
+    valeur = models.IntegerField(default = 1)
     
     def __unicode__(self):
         return self.resume
