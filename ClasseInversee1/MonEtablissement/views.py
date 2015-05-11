@@ -6,6 +6,8 @@ import django_tables2 as tables
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.context_processors import csrf
+from django.contrib.auth import logout
+
 
 from django.template import RequestContext
 
@@ -167,6 +169,15 @@ def login(request):
     return render(request,'MonEtablissement/login.html', {'form': form})
 
 
+def logout_view(request):
+    """
+    Methode to logout and redirect to welcome page
+    """
+    logout(request)
+    # Redirect to entry page.
+    return HttpResponseRedirect('/welcome')
+
+
 def get_logged_user_from_request(request):
     """
     Protection des pages privées 
@@ -273,6 +284,10 @@ def register(request):
             username = request.POST.get('username')
             #Retrieve the underlying User object from DB
             user = User.objects.get(username=username)
+            #User is anctive by default
+            user.is_active = False
+            user.save()
+            
             #Create an non-validating object
             eleve = student_form.save(commit=False)
             #Pass it the desired user foreign key
@@ -332,27 +347,77 @@ class Results_Table(tables.Table):
     todo: Sort by activity!
     
     """
+    
+    nom = tables.Column(accessor = 'eleve.user.first_name' )
+    prenom = tables.Column(accessor = 'eleve.user.last_name' )
+    id_eleve = tables.Column(accessor='eleve.id')
+    #active = tables.Column(accessor = 'eleve.user.is_active' )
+    
     class Meta:
         model = ProgressionEleve
         # add class="paleblue" to <table> tag
         attrs = {"class": "paleblue"}
+        fields = ('activite', 'resultat', 'attempt','question', 'date', 'id_eleve')
+        sequence = ('prenom', 'nom')
+        
+class Final_Result_Table(tables.Table):
+    """
+    A custom table to compile all results from eleve for a given sequence
+    """
+    nom = tables.Column()
+    prenom = tables.Column()
+    note = tables.Column()
+    class Meta:
+        # add class="paleblue" to <table> tag
+        attrs = {"class": "paleblue"}
+    
+  
         
 def Results_simple_list(request,classe_id = None, seq_id = None):
+    """
+    Serve results for admin/teacher
+    """
     
     #get activity id for seq_id:
-#     ma_seance_list = MesSeance.objects.all().filter(ma_sequence= seq_id)
     mes_activite_list = MesActivite.objects.all().filter(ma_sequence = seq_id  )   
-     
-    #build the queryset from all model objects
-    eleve_list = Eleve.objects.all().filter(ma_classe = classe_id)
-         
-    queryset = ProgressionEleve.objects.all().filter(activite__in=mes_activite_list, eleve__in=eleve_list )
     
+    #build the queryset from all model objects
+    eleve_list = Eleve.objects.all().filter(ma_classe = classe_id)    
+    queryset = ProgressionEleve.objects.all().filter(activite__in=mes_activite_list, eleve__in=eleve_list ).select_related('eleve')
+                                                                                              
     table = Results_Table(queryset)
+    
+    # Build a table that give final result for a given sequence
+    global_dict = {}
+    global_result = []
+    note = None
+    
+    for entry in queryset:
+        #Build a dict. to pass to django-tables:
+        try:
+            note = global_dict[entry.eleve]
+            note_new = entry.resultat + note
+            global_dict.update({entry.eleve: note_new})   
+        except KeyError:
+            global_dict.update({entry.eleve: entry.resultat})
+        
+        
+    for i in global_dict.items():
+        
+#         user = Eleve.objects.all().get(id = i[0].id)
+        user = Eleve.objects.all().filter(id = i[0].id).select_related('user')
+        global_result.append({'nom': user[0].user.last_name, 'prenom':user[0].user.first_name, 'note': i[1]})
+#         global_result.append({i[0]:i[1]})
+    
+    table_final = Final_Result_Table(global_result)
+        
+    
+    
     # style the table
     tables.RequestConfig(request).configure(table)
+    tables.RequestConfig(request).configure(table_final)
     
-    context = {"table": table, "sequence": MesSequence.objects.all().get(id=seq_id), "classe":MesClasse.objects.all().get(id=classe_id)}
+    context = {"table": table, "table_final":table_final, "sequence": MesSequence.objects.all().get(id=seq_id), "classe":MesClasse.objects.all().get(id=classe_id)}
     
     
     #USAGE: render(objet requête, garabit, contexte rempli <dict> (variable) **kwargs)
@@ -400,9 +465,8 @@ def my_questionform(request,activity_id = None ):
     TODO: select proper question/reponse
     """
     #prepare a form; QCM
-    
     form = QuestionsForm()
-    
+    #Fetch question/reponse to specific activity
     if not activity_id:
         for question, reponse in iterquestions():
             form.add_question(question, reponse)
@@ -429,7 +493,7 @@ def my_questionform(request,activity_id = None ):
                 if int(request.POST.get(question.enonce)) == count:
                     #reponse juste
                     reptext+="<p>Question "+unicode(question.enonce)+" reponse juste </p>"
-                    note += 1
+                    note += question.valeur
                 else:
                     #reponse fausse
                     reptext+="<p>Question "+unicode(question.enonce)+" reponse fausse </p>"
@@ -440,12 +504,6 @@ def my_questionform(request,activity_id = None ):
             else:
                 #answer is wrong or nothing has been submitted
                 pass
-            
-        logged_user = get_logged_user_from_request(request)
-        
-        if logged_user:
-            output += logged_user.username
-        output += reptext
         
         #TODO:
         # At this point a new entry is written if student decide to submit a new answer to
@@ -454,19 +512,42 @@ def my_questionform(request,activity_id = None ):
         
         #create  and save an object that:
         #1. identify the user
-        #2. identify the activity he completed
+        #2. identify the activity he completed + retrieve "niveau" from attached sequence
         #3. Check if a corresponding entry exists SELECT...WHERE...
         #4. save his score (UPDATE or INSERT depending on 3.)
-        activity = MesActivite.objects.filter(id = activity_id)[0]
+        # Kept for reference: retrieve activity bjet without related "Sequence" from foreign key 
+        # activity = MesActivite.objects.filter(id = activity_id)[0]
+        # DB "one hitter" get objets and related object follow foreign keys
+        activity = MesActivite.objects.select_related('ma_sequence').get(id = activity_id )
+        sequence_id = activity.ma_sequence.id
+        niveau = activity.ma_sequence.niveau
         
+        # USER AUTHENTIFICATION    
+        logged_user = get_logged_user_from_request(request)
         
+        if not logged_user:
+            #Form won't be process
+            return render(request, 'MonEtablissement/completed_bs.html', {'activity_id': activity_id, 'redo': True, 'niveau': niveau,
+                                                                          'sequence_id':sequence_id, 'anonymous_user': True})
         
+        if logged_user and not logged_user.is_active:
+            #user nno-actif
+            return HttpResponse("Non actif")
+        
+        if logged_user:
+            output += logged_user.username
+        output += reptext
+        
+
         #get() queryset; Only one result shoud be expected
         try:
             progeleve = ProgressionEleve.objects.all().get(activite=activity, eleve = Eleve.objects.all().get(user = logged_user))
         except ProgressionEleve.DoesNotExist:
             ProgressionEleve.objects.create(eleve = Eleve.objects.all().get(user = logged_user), resultat = note, activite=activity )
-            return HttpResponse(output)
+            return render(request, 'MonEtablissement/completed_bs.html', {'activity': activity_id, 'niveau': niveau, 'sequence_id': sequence_id})
+            
+#             return HttpResponse(output)
+        
         except ProgressionEleve.MultipleObjectsReturned:
             pass
         
@@ -476,7 +557,7 @@ def my_questionform(request,activity_id = None ):
         progeleve.question = request.POST.get('question_eleve')
         progeleve.save()
         
-        return HttpResponse("MAJ")
+        return render(request, 'MonEtablissement/completed_bs.html', {'activity_id': activity_id, 'redo': True, 'niveau': niveau, 'sequence_id':sequence_id})
             
     
             
@@ -498,6 +579,34 @@ def pdf_view(request):
         response['Content-Disposition'] = 'filename=some_file.pdf'
         return response
     pdf.closed
+    
+    
+def png_view(request):
+    """
+    Classe pour servir un document 'image/png' au sein du navigateur
+    """
+    
+    #format url - remove leading '/' form request.path
+      
+    with open(request.path[1:], 'r') as png:
+        response = HttpResponse(png.read(),content_type='image/png')
+        response['Content-Disposition'] = 'filename=some_file.png'
+        return response
+    png.closed
+    
+    
+def mp4_view(request):
+    """
+    Classe pour servir un document 'image/png' au sein du navigateur
+    """
+    
+    #format url - remove leading '/' form request.path
+      
+    with open(request.path[1:], 'r') as mp4:
+        response = HttpResponse(mp4.read(),content_type='video/mp4')
+        response['Content-Disposition'] = 'filename=some_file.mp4'
+        return response
+    mp4.closed
 
 
 def your_view(request):
