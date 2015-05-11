@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     #url(r'^$', 'ClasseInversee1.views.home', name='home'),
     url(r'^$', include('MonEtablissement.urls'), name='home'),
     url(r'^login/', views.login),
+    url(r'^logout', views.logout_view),
     url(r'^welcome', views.welcome),
     url(r'^profile', views.show_profile),
     url(r'^MonEtablissement/', include('MonEtablissement.urls')),
@@ -19,7 +20,8 @@ urlpatterns = patterns('',
     url(r'^testd3js', views.your_view),
     # SERVE MEDIAS FILES
     url(r'.pdf', views.pdf_view),
-#     url(r'.png', views.png_view),
+    url(r'.png', views.png_view),
+    url(r'.mp4', views.mp4_view),
     # QUESTIONNAIRE
     url(r'questionform_(?P<activity_id>\d+)', views.my_questionform),
     # RESULTATS_ELEVES_ACTIVITE

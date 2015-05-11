@@ -51,7 +51,7 @@
 				
 				{% if c.docfile %}
 				{% if c.docfile.url  %}		
-					<a href="{{ f.docfile.url  }}">
+					<a href="{{ c.docfile.url  }}">
 						<div class="center-block col-sm-3" >
 								<div style="margin-top:10px;
 											color:black;
@@ -60,11 +60,11 @@
 											border-radius: 10px;
 											height:180px">
 											
-									<p><em><span style="text-transform:lowercase;">{{ f.short_description_activite }}
+									<p><em><span style="text-transform:lowercase;">{{ c.short_description_activite }}
 									</span></em></p>
 									
 									<h3><span style="text-transform:lowercase;">
-										{{ f.full_description_activite }} 
+										{{ c.full_description_activite }} 
 										</span>
 									</h3>
 																
