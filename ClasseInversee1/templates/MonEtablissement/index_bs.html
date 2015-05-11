@@ -5,7 +5,7 @@
 <!-- acces crispy namespace -->
 {% load crispy_forms_tags %}
 
-{% block title %}Acceuill{% endblock %} 
+{% block title %}Acceuil{% endblock %} 
 {% block bodyId %}welcomePage{% endblock %} 
 
 
@@ -86,35 +86,229 @@
 		</div><!-- row -->
 		
 		
-		
-		<div class="span12">
-			<!-- test un titre de niveau 1 qui redirige vers la page d'acceuil -->
-			<h1 class="site-title">
-				<a href="http://127.0.0.1:8000/welcome"
-					title="la classe à l'envers.fr" rel="home">la classe à l'envers</a>
-				<!-- 			<a href="http://www.classe-a-l-envers.fr/" title="la classe à l'envers.fr" rel="home">la classe à l'envers</a> -->
-			</h1>
+		<div class="container-fluid">
+ 			<div class="row text-justify">
+				<div class="col-sm-6  ">
+					<!-- test un titre de niveau 1 qui redirige vers la page d'acceuil -->
+					<h1 class="site-title">
+						<a href="http://127.0.0.1:8000/welcome"
+							title="la classe à l'envers.fr" rel="home">la classe à l'envers</a>
+						<!-- 			<a href="http://www.classe-a-l-envers.fr/" title="la classe à l'envers.fr" rel="home">la classe à l'envers</a> -->
+					</h1>
 
-			<h2 class="site-description">Classe inversée en Mathématiques</h2>
+					<h2 class="site-description">En quoi cela consiste t'il?</h2>
 
-			<!-- test acceuil utilisateur -->
-			<!-- {% if logged_user %}
-			<p>Bienvenue {{logged_user.first_name}}</p>
-			<p>Bienvenue {{logged_user}}</p>
-			{% endif %} -->
+						<p>
+							Dans un modèle pédagogique <mark>usel/classique/traditionnel</mark> le professeur fait la leçon 
+							en classe et donne des exercices d'entraînement ou de recherche à faire dans le temps de travail hors-classe.
+						</p>
 
-			
-				Ce site est votre plateforme de classe inversée.
+						<p class="lead">"Disposer de plus de temps pour évaluer le travail de recherche des élèves et
+							leurs compétences dans la résolution de problèmes." </p>
 
-				BlablablaBlablablaBlablablaBlablablaBlablabla
-				BlablablaBlablablaBlablabla BlablablaBlablablaBlablablaBlablabla
-				BlablablaBlablablaBlablabla BlablablaBlablablaBlablabla
-				BlablablaBlablablaBlablablaBlablablaBlablablaBlablablaBlablablaBlablablaBlablabla
-				BlablablaBlablablaBlablablaBlablablaBlablablaBlablabla
-				BlablablaBlablablaBlablabla Blablabla
-			
-		</div><!-- span12 -->
-		
+						<p >
+							« Inverser la classe », c'est exporter les leçons en dehors de la classe, par l'intermédiaire
+							de capsules vidéos de quelques minutes. Le temps d'interaction entre l'enseignant et les élèves
+							peut alors être utilisé pour faire plus d'activités, de recherches mais aussi pour travailler en
+							groupes. 
+						</p>
+
+						<blockquote>
+						  <p>Un enseignement différencié.</p>
+						  <p>Un gain de temps.</p>
+						  <p>Le tutorat par les pairs.</p>
+						  <p> Un temps de classe plus agréables.</p>
+						  <p> Une autonomie des élèves développée.</p>
+
+						  <footer>Dufour H., Technologie, no 193,‎ septembre-octobre 2014, p. 44-47 <cite title="Source Title">« La classe inversée »</cite></footer>
+						</blockquote>
+
+
+					<h2 class="site-description">Quelques explications supplémentaire</h2>
+						
+						<p>
+							Les contenus des capsules vidéos et activités sont réalisées <mark><strong>pour les élèves par leur professeur</strong></mark>. 
+							Des ressources additionnelles peuvent également être indiquées pour poursuivre l'apprentissage.
+						</p>
+						
+					<!-- test acceuil utilisateur -->
+					<!-- {% if logged_user %}
+					<p>Bienvenue {{logged_user.first_name}}</p
+					<p>Bienvenue {{logged_user}}</p>
+					{% endif %} -->
+
+					
+				</div><!-- col-sm-6 -->
+
+				<div class="col-sm-6 " style="margin-top:10px;
+											color:black;
+											{% if d.1.color  %}
+											background: {{d.1.color }};
+											{% else %}
+											background: {{d.1 }};
+											{% endif %}
+											border: #cdcdcd medium solid;
+											border-radius: 10px;
+											">
+
+
+				<h2 class="site-description">Ce site est votre plateforme de classe inversée</h2>
+						
+						<p>
+							En pratique, je mettrai un lien internet qui permet d'accéder aux vidéos dans le cahier
+							de texte de l'ENC, à la place des devoirs à faire. 
+						</p>
+
+						<P>
+
+						</P>
+
+						<p>
+							Vous pourrez, vous aussi, regarder ces vidéos.
+							Pour les élèves qui n'auraient pas d'accès internet chez eux, il sera toujours possible de
+							visionner les vidéos au CDI pendant la récréation du matin ou les heures de demi-pension.
+							Les vidéos sont suivies d'un petit questionnaire que les élèves doivent compléter. Il est possible
+							d'emmettre une remarque ou une question lors de la participation aux questionnaires.
+
+							<p class="bg-info">Il s'agit de savoir si les cours ont été bien compris et ainsi mieux répondre aux interrogations des élèves à la
+							séance qui suit le visionnage.
+							</p>
+							
+						</p>						
+
+						<p>
+							Quelques avantages de la pédagogie inversée :
+							<ul>
+								<li>Les élèves peuvent appendre les leçons à leur rythme (avec une vidéo, on peut
+							mettre « pause » ou revenir en arrière).</li>
+								<li>Les activités de découverte, les recherches et les tâches complexes sont accomplies
+							en classe, avec le professeur.</li>
+								<li> Les élèves sont plus actifs pendant les cours.</li>
+
+							</ul>
+							
+							<em></em>
+						</p>
+
+						<h2 class="site-description">Comment utiliser ce site</h2>
+
+						<p class="bg-info">
+							L'utilisation de ce site requiert une inscription de l'élève et une validation de son profil par l'enseignant.
+							Votre enseignant vous accompagnera pour réalisr cette inscription.
+						</p>
+
+						<p>
+							Tout le monde peut accèder sans limitations aux ressources de ce site.
+							Seuls les élèves enregistrés comme participant par l'enseignant peuvent participer aux questionnaires. 
+						</p>
+
+
+						<h2 class="site-description">Quelques Liens</h2>
+
+
+						<a href="http://fr.wikipedia.org/wiki/Classe_inversée" >
+							<div class="col-sm-3 text-center" >
+								<div style="margin-top:10px;
+											color:black;
+											{% if d.1.color  %}
+											background: {{d.1.color }};
+											{% else %}
+											background: {{d.1 }};
+											{% endif %}
+											border: #cdcdcd medium solid;
+											border-radius: 10px;
+											height:80px">
+								<p><em>Wikipedia</em></p>
+								
+						
+								<p> <span style="text-transform:uppercase;"><b>La Classe Inversée</b></span> </p>
+						
+
+						
+								</div>
+							</div>
+						</a>
+
+
+
+						<a href="http://fr.wikipedia.org/wiki/Classe_inversée" >
+							<div class="col-sm-3 text-center" >
+								<div style="margin-top:10px;
+											color:black;
+											{% if d.1.color  %}
+											background: {{d.1.color }};
+											{% else %}
+											background: {{d.1 }};
+											{% endif %}
+											border: #cdcdcd medium solid;
+											border-radius: 10px;
+											height:80px">
+								<p><em>Wikipedia</em></p>
+								
+						
+								<p> <span style="text-transform:uppercase;"><b>La Classe Inversée</b></span> </p>
+						
+
+						
+								</div>
+							</div>
+						</a>
+
+						<a href="http://fr.wikipedia.org/wiki/Classe_inversée" >
+							<div class="col-sm-3 text-center" >
+								<div style="margin-top:10px;
+											color:black;
+											{% if d.1.color  %}
+											background: {{d.1.color }};
+											{% else %}
+											background: {{d.1 }};
+											{% endif %}
+											border: #cdcdcd medium solid;
+											border-radius: 10px;
+											height:80px">
+								<p><em>Wikipedia</em></p>
+								
+						
+								<p> <span style="text-transform:uppercase;"><b>La Classe Inversée</b></span> </p>
+						
+
+						
+								</div>
+							</div>
+						</a>
+
+						<a href="http://fr.wikipedia.org/wiki/Classe_inversée" >
+							<div class="col-sm-3 text-center" >
+								<div style="margin-top:10px;
+											color:black;
+											{% if d.1.color  %}
+											background: {{d.1.color }};
+											{% else %}
+											background: {{d.1 }};
+											{% endif %}
+											border: #cdcdcd medium solid;
+											border-radius: 10px;
+											height:80px">
+								<p><em>Wikipedia</em></p>
+								
+						
+								<p> <span style="text-transform:uppercase;"><b>La Classe Inversée</b></span> </p>
+						
+
+						
+								</div>
+							</div>
+						</a>
+
+
+
+
+
+
+				</div>
+
+			</div>
+		</div>
 	</div><!-- row top-level -->
 	
 
