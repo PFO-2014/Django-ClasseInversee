@@ -39,8 +39,8 @@ class MesClassesAdmin(admin.ModelAdmin):
 #     inlines = [MesActiviteInline]
     
 class MesSequenceAdmin(admin.ModelAdmin):
-    list_display = ('short_description_sequence', 'niveau')
-    list_filter = ('short_description_sequence', 'niveau')
+    list_display = ('short_description_sequence','ordre' ,'niveau')
+    list_filter = ('short_description_sequence',  'niveau')
     
     Fieldset = [
                 ('Séquence', {'fields': ['short_description_sequence']}),
