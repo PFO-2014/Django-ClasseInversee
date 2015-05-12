@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'.pdf', views.pdf_view),
     url(r'.png', views.png_view),
     url(r'.mp4', views.mp4_view),
+    url(r'json_(?P<niveau_int>\d+)', views.protojsondump),
     # QUESTIONNAIRE
     url(r'questionform_(?P<activity_id>\d+)', views.my_questionform),
     # RESULTATS_ELEVES_ACTIVITE
