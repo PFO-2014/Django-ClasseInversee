@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import json
-import django_tables2 as tables
 
+import django_tables2 as tables
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.context_processors import csrf
@@ -614,4 +614,27 @@ def your_view(request):
     poll_as_json = json.dumps(poll_results)
     # Gives you a string '[4, 6, 7, 1]'
     return render(request, 'MonEtablissement/testd3js.html', {'poll_as_json': poll_as_json}) 
+
+def protojsondump(request, niveau_int = 3):
+    niveau = MesNiveaux.objects.get(niveau = niveau_int)
+    data = MesSequence.objects.filter(niveau = niveau).select_related("domaine").order_by("ordre")
+    
+#     response_data = {"niveau": niveau, 
+#      "sequence": [{"short_description_sequence":d.short_description_sequence,
+#                     "competences": [ {"description": p.description} for p in d.competence_set.all() ] }
+#                    for d in data],
+#      }
+    
+    response_data = {"name": str(niveau_int)+" eme", 
+     "children": [{"name":d.short_description_sequence,
+                    "children": [ {"name": p.description} for p in d.competence_set.all() ] }
+                   for d in data],
+     }
+    
+        
+#     return HttpResponse(json.dumps(response_data), content_type='application/json')
+    
+    return render(request, 'MonEtablissement/present_seq_d3.html', {'jason': json.dumps(response_data)}) 
+
+
     
