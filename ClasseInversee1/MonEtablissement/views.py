@@ -366,20 +366,25 @@ class Final_Result_Table(tables.Table):
     """
     nom = tables.Column()
     prenom = tables.Column()
-    note = tables.Column()
+    note = tables.Column('Note /100')
     class Meta:
         # add class="paleblue" to <table> tag
         attrs = {"class": "paleblue"}
     
   
         
-def Results_simple_list(request,classe_id = None, seq_id = None):
+def results_simple_list(request,classe_id = None, seq_id = None):
     """
     Serve results for admin/teacher
     """
     
     #get activity id for seq_id:
     mes_activite_list = MesActivite.objects.all().filter(ma_sequence = seq_id  )   
+    #note maximale = somme de toutes les valeurs de Questions associées aux Activités pour cette Seq.
+    note_max = 0
+    for activity in mes_activite_list:
+        note_max += sum([val[0] for val in activity.mesquestion_set.values_list('valeur')])
+#         note_max.append(([val for val in activity.mesquestion_set.values_list('valeur')]))
     
     #build the queryset from all model objects
     eleve_list = Eleve.objects.all().filter(ma_classe = classe_id)    
@@ -406,7 +411,7 @@ def Results_simple_list(request,classe_id = None, seq_id = None):
         
 #         user = Eleve.objects.all().get(id = i[0].id)
         user = Eleve.objects.all().filter(id = i[0].id).select_related('user')
-        global_result.append({'nom': user[0].user.last_name, 'prenom':user[0].user.first_name, 'note': i[1]})
+        global_result.append({'nom': user[0].user.last_name, 'prenom':user[0].user.first_name, 'note': round(float(i[1]/float(note_max))*100,1)})
 #         global_result.append({i[0]:i[1]})
     
     table_final = Final_Result_Table(global_result)
@@ -417,7 +422,7 @@ def Results_simple_list(request,classe_id = None, seq_id = None):
     tables.RequestConfig(request).configure(table)
     tables.RequestConfig(request).configure(table_final)
     
-    context = {"table": table, "table_final":table_final, "sequence": MesSequence.objects.all().get(id=seq_id), "classe":MesClasse.objects.all().get(id=classe_id)}
+    context = {"dev": note_max, "table": table, "table_final":table_final, "sequence": MesSequence.objects.all().get(id=seq_id), "classe":MesClasse.objects.all().get(id=classe_id)}
     
     
     #USAGE: render(objet requête, garabit, contexte rempli <dict> (variable) **kwargs)
@@ -428,7 +433,7 @@ def my_results(request, classe_id = None, niveau_int = None):
     """
     Classe pour:
     
-        - donner accès à l'ensemble des résultats par séquence
+        - donner accès à l'ensemble des séquences par classe
         pour un classe donnée
         - Réutilise template "élève" pour selection de séquence
     """

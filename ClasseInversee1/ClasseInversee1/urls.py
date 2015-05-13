@@ -27,7 +27,7 @@ urlpatterns = patterns('',
     url(r'questionform_(?P<activity_id>\d+)', views.my_questionform),
     # RESULTATS_ELEVES_ACTIVITE
     url(r'resultform_(?P<niveau_int>\d+)(?P<classe_id>\d+)', views.my_results),
-    url(r'results_(?P<classe_id>\d+)(?P<seq_id>\d+)', views.Results_simple_list),
+    url(r'results_(?P<classe_id>\d+)(?P<seq_id>\d+)', views.results_simple_list),
 
     
 )
